@@ -1,20 +1,32 @@
 ﻿@model IEnumerable<EstacionamientoMedido.Models.Ticket>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "LISTADO DE CLIENTES";
+    //Layout = null;
 }
 
-<h1>Index</h1>
+<h1><span class="badge badge-warning"> @ViewData["Title"] </span></h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create">Crear nueva</a>
 </p>
-<table class="table">
+
+<!--
+
+class="table table-bordered table-striped table-hover table-responsive nowrap"
+
+class="table table-striped table-bordered dataTable no-footer"
+
+-->
+
+<table id="ticketsTable" class="table table-bordered table-striped table-hover table-responsive nowrap" style="font-size:small;">
     <thead>
+
         <tr>
+
             <th>
                 @Html.DisplayNameFor(model => model.ClientDocumentNumber)
-            </th>
+
             <th>
                 @Html.DisplayNameFor(model => model.ClientName)
             </th>
@@ -49,47 +61,83 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.ClientDocumentNumber)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ClientName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Patent)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.VehicleModel)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.VehicleBrand)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CheckIn)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CheckOut)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Date)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Street)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.StreetHeight)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ClientEmail)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ClientDocumentNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ClientName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Patent)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.VehicleModel)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.VehicleBrand)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CheckIn)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CheckOut)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Date)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Street)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StreetHeight)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ClientEmail)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+
+            </tr>
+        }
     </tbody>
 </table>
+
+<div class="dt-buttons btn-group">
+    <button class="btn btn-secondary buttons-excel buttons-html5 btn-success" tabindex="0" aria-controls="example" type="button" title="Exportar a Excel"><span><i class="fas fa-file-excel"></i> </span></button>
+    <button class="btn btn-secondary buttons-pdf buttons-html5 btn-danger" tabindex="0" aria-controls="example" type="button" title="Exportar a PDF"><span><i class="fas fa-file-pdf"></i> </span></button>
+    <button class="btn btn-secondary buttons-print btn-info" tabindex="0" aria-controls="example" type="button" title="Imprimir"><span><i class="fa fa-print"></i> </span></button>
+</div>
+
+@section Scripts {
+
+    <script>
+        $(document).ready(function () {
+
+            // Set up the DataTable grid
+            $('#ticketsTable').DataTable({
+                dom: 'Bfrtip',
+                buttons: [
+                    {
+                        extend: 'excelHtml5',
+                        exportOptions: {
+                            columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+                        },
+                        footer: true,
+                        header: true
+                    }
+                ],
+                "language": {
+                    "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json"
+                }
+            });
+
+        });
+    </script>
+
+}

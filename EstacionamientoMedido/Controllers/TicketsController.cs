@@ -61,9 +61,15 @@ namespace EstacionamientoMedido.Controllers
                 ticket.Id = Guid.NewGuid();
                 _context.Add(ticket);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Comprobante));
             }
             return View(ticket);
+        }
+
+        // GET: Tickets/Create
+        public IActionResult Comprobante()
+        {
+            return View();
         }
 
         // GET: Tickets/Edit/5

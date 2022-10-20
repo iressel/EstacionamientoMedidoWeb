@@ -23,6 +23,10 @@ namespace EstacionamientoMedido.Controllers
             return View();
         }
 
+        public IActionResult Tickets()
+        {
+            return View();
+        }
         public IActionResult Privacy()
         {
             return View();
