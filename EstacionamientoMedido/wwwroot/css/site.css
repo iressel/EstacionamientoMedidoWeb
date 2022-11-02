@@ -59,9 +59,22 @@ html {
 }
 
 body {
-  /* Margin bottom by footer height */
-  margin-bottom: 60px;
+    /* Margin bottom by footer height */
+    margin-bottom: 60px;
 }
+
+body#principal {
+    background-image: url("../tunnig.jpg");
+    background-repeat: no-repeat;
+    /*background-attachment: fixed;*/
+    background-position: center;
+    background-size: 900px;
+}
+
+img {
+    opacity: 0.2;
+}
+
 .footer {
   position: absolute;
   bottom: 0;

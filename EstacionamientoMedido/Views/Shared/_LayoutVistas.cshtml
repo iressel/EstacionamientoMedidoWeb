@@ -13,7 +13,7 @@
     <!--datables estilo bootstrap 4 CSS-->
     <link rel="stylesheet" type="text/css" href="datatables/DataTables-1.10.18/css/dataTables.bootstrap4.min.css">
 </head>
-<body id="principal">
+<body>
     <header>
         <nav class="navbar navbar-expand-Ssm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container">
@@ -36,11 +36,11 @@
             </div>
         </nav>
     </header>
-   
-    <div id="principal" class="container">
-       
+
+    <div class="container">
+
         <main role="main" class="pb-3">
-            
+
 
             @RenderBody()
         </main>
@@ -48,7 +48,7 @@
 
     <footer class="border-top footer text-muted">
         <div class="container text-center">
-            &copy; @DateTime.Now.Year - EstacionamientoMedido - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a> - 
+            &copy; @DateTime.Now.Year - EstacionamientoMedido - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a> -
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
