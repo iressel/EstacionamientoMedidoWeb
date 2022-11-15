@@ -13,7 +13,7 @@
 
     </div>
     <div class="col-md-6">
-        <form asp-action="Create">
+        <form>
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="ClientDocumentNumber" class="control-label"></label>
@@ -51,10 +51,10 @@
                 <span asp-validation-for="CheckOut" class="text-danger"></span>
             </div>
             @*<div class="form-group">
-                <label asp-for="Date" class="control-label"></label>
-                <input asp-for="Date" class="form-control" />
-                <span asp-validation-for="Date" class="text-danger"></span>
-            </div>*@
+            <label asp-for="Date" class="control-label"></label>
+            <input asp-for="Date" class="form-control" />
+            <span asp-validation-for="Date" class="text-danger"></span>
+        </div>*@
             <div class="form-group">
                 <label asp-for="Street" class="control-label"></label>
                 <input asp-for="Street" class="form-control" />
@@ -72,7 +72,7 @@
             </div>
             <div class="form-group">
                 @*<button>Crear</button>*@
-                <input type="submit" value="Enviar" class="btn btn-primary" />
+                <button id="comprobante" class="btn btn-primary">Enviar</button>
             </div>
         </form>
     </div>
@@ -82,6 +82,7 @@
     <a asp-action="Index">Back to List</a>
 </div>
 
-@section Scripts {
+@section Scripts 
+{
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

@@ -54,22 +54,45 @@ namespace EstacionamientoMedido.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,ClientDocumentNumber,ClientName,Patent,VehicleModel,VehicleBrand,CheckIn,CheckOut,Date,Street,StreetHeight,ClientEmail")] Ticket ticket)
+        public async Task<IActionResult> Create(string clientDocumentNumber, 
+            string clientName, string patent, string vehicleModel, string vehicleBrand, 
+            string checkIn, string checkOut, string street, string streetHeight, string clientEmail)
         {
+            var ticket = new Ticket();
+            ticket.ClientDocumentNumber = clientDocumentNumber;
+            ticket.ClientName = clientName;
+            ticket.Patent = patent;
+            ticket.VehicleModel = vehicleModel;
+            ticket.VehicleBrand = vehicleBrand;
+            ticket.CheckIn = Convert.ToDateTime(checkIn).TimeOfDay;
+            ticket.CheckOut = Convert.ToDateTime(checkOut).TimeOfDay;
+            ticket.Street = street;
+            ticket.StreetHeight = streetHeight;
+            ticket.ClientEmail = clientEmail;
+
             if (ModelState.IsValid)
             {
-                ticket.Id = Guid.NewGuid();
+                ticket.Id = new Guid();
                 _context.Add(ticket);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Comprobante));
+
+                dynamic result = new
+                {
+                    ticketId = ticket.Id
+                };
+
+                return Json(result);
+                //return RedirectToAction(nameof(Index));//return RedirectToAction("Comprobante", new { ticketId = ticketId });
             }
+
             return View(ticket);
         }
 
-        // GET: Tickets/Create
-        public IActionResult Comprobante()
+        // GET: Tickets/Comprobante
+        public async Task<IActionResult> Comprobante(string ticketId)
         {
-            return View();
+            var ticket = await _context.Tickets.FindAsync(Guid.Parse(ticketId));
+            return View(ticket);
         }
 
         // GET: Tickets/Edit/5

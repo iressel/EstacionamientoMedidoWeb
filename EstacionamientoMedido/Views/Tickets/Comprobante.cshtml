@@ -1,4 +1,6 @@
-﻿@{
+﻿@model EstacionamientoMedido.Models.Ticket
+
+@{
     Layout = null;
 }
 
@@ -11,18 +13,22 @@
 
 <body>
     <!--CODIGO HTML-->
-
+    <h2>Ticket generado para el cliente: @Model.ClientName</h2>
+    <div>
+        Fecha: @Model.Date
+    </div>
+    <div>
+        Hora entrada: @Model.CheckIn
+    </div>
+    <div>
+        Hora salida: @Model.CheckOut
+    </div>
     <!--REFERENCIAS A SCRIPTS JAVASCRIPT-->
-
 </body>
 
 </html>
 
 
 @section Scripts {
-
-    <script>
-        print();
-    </script>
 
 }
