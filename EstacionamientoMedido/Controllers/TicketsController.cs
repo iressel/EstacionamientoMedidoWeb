@@ -13,10 +13,12 @@ namespace EstacionamientoMedido.Controllers
     public class TicketsController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly ClientsController _clientsController;
 
         public TicketsController(ApplicationDbContext context)
         {
             _context = context;
+            _clientsController = new ClientsController(context);
         }
 
         // GET: Tickets
@@ -53,7 +55,7 @@ namespace EstacionamientoMedido.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
+        //[ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(string clientDocumentNumber, 
             string clientName, string patent, string vehicleModel, string vehicleBrand, 
             string checkIn, string checkOut, string street, string streetHeight, string clientEmail)
@@ -69,6 +71,7 @@ namespace EstacionamientoMedido.Controllers
             ticket.Street = street;
             ticket.StreetHeight = streetHeight;
             ticket.ClientEmail = clientEmail;
+            ticket.Date = DateTime.Now;
 
             if (ModelState.IsValid)
             {
@@ -76,13 +79,19 @@ namespace EstacionamientoMedido.Controllers
                 _context.Add(ticket);
                 await _context.SaveChangesAsync();
 
+                var client = new Client();
+                client.Name = clientName;
+                client.DocumentNumber = clientDocumentNumber;
+                client.Email = clientEmail;
+
+                await _clientsController.Create(client);
+
                 dynamic result = new
                 {
                     ticketId = ticket.Id
                 };
 
                 return Json(result);
-                //return RedirectToAction(nameof(Index));//return RedirectToAction("Comprobante", new { ticketId = ticketId });
             }
 
             return View(ticket);

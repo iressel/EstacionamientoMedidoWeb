@@ -13,17 +13,16 @@
 
     let parameters =
     {
-        id = _ticketId,
         clientDocumentNumber: _clientDocumentNumber,
         clientName: _clientName,
-        patent = _patent,
-        vehicleModel = _vehicleModel,
-        vehicleBrand = _vehicleBrand,
-        checkIn = _checkIn,
-        checkOut = _checkOut,
-        street = _street,
-        streetHeight = _streetHeight,
-        clientEmail = _clientEmail
+        patent : _patent,
+        vehicleModel : _vehicleModel,
+        vehicleBrand : _vehicleBrand,
+        checkIn : _checkIn,
+        checkOut : _checkOut,
+        street : _street,
+        streetHeight : _streetHeight,
+        clientEmail : _clientEmail
     };
 
     $.ajax({
@@ -31,12 +30,13 @@
         dataType: 'json',
         url: "/Tickets/Create",
         data: parameters,
+        async: false,
         success: function (result) {
             debugger;
-            let _ticketId = result.ticketid;
+            let _ticketId = result.ticketId;
             $.ajax({
                 type: "GET",
-                url: /Tickets/Comprobante,
+                url: "/Tickets/Comprobante",
                 data: { ticketId: _ticketId },
                 success: function (data) {
                     debugger;
@@ -44,9 +44,10 @@
                     printWindow.document.write(data);
                     printWindow.document.close();
                     printWindow.print();
-                    window.location.href = /Tickets/Index;
+                    window.location.href = "/Tickets/Index";
                 },
                 error: function (error) {
+                    debugger;
                     console.log(error);
                 }
             });

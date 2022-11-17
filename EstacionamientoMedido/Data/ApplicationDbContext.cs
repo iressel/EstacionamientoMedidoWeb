@@ -15,5 +15,7 @@ namespace EstacionamientoMedido.Data
         }
 
         public DbSet<Ticket> Tickets { get; set; }
+
+        public DbSet<Client> Clients { get; set; }
     }
 }
