@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace EstacionamientoMedido.Models
 {
@@ -26,8 +27,8 @@ namespace EstacionamientoMedido.Models
         public string VehicleModel { get; set; }
 
         [DisplayName("Marca vehículo:")]
-        [Required(ErrorMessage = "Debe ingresar marca del vehículo.", AllowEmptyStrings = false)]
-        public string VehicleBrand { get; set; }
+        [Required(ErrorMessage = "Debe seleccionar marca del vehículo.", AllowEmptyStrings = false)]
+        public string BrandId { get; set; }
 
         [DisplayName("Hora entrada:")]
         [DataType(DataType.Time)]
@@ -49,6 +50,10 @@ namespace EstacionamientoMedido.Models
 
         [DisplayName("Correo electrónico:")]
         public string ClientEmail { get; set; }
+
+        [NotMapped]
+        [DisplayName("Marca vehículo:")]
+        public string BrandName { get; set; }
         /*     
         ejemplo
         de

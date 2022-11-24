@@ -4,7 +4,7 @@
     let _clientName = $("input#ClientName").val();
     let _patent = $("input#Patent").val();
     let _vehicleModel = $("input#VehicleModel").val();
-    let _vehicleBrand = $("input#VehicleBrand").val();
+    let _vehicleBrand = $("#BrandId").val();
     let _checkIn = $("input#CheckIn").val();
     let _checkOut = $("input#CheckOut").val();
     let _street = $("input#Street").val();

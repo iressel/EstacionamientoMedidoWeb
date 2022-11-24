@@ -24,6 +24,24 @@ namespace EstacionamientoMedido.Controllers
         // GET: Tickets
         public async Task<IActionResult> Index()
         {
+            var query = (from ticket in await _context.Tickets.ToListAsync()
+                         join brand in await _context.Brands.ToListAsync() on Guid.Parse(ticket.BrandId) equals brand.Id
+                         select new Ticket
+                         {
+                             Id = ticket.Id,
+                             ClientDocumentNumber = ticket.ClientDocumentNumber,
+                             ClientName = ticket.ClientName,
+                             Patent = ticket.Patent,
+                             VehicleModel = ticket.VehicleModel,
+                             BrandName = brand.Name,
+                             CheckIn = ticket.CheckIn,
+                             CheckOut = ticket.CheckOut,
+                             Date = ticket.Date,
+                             Street = ticket.Street,
+                             StreetHeight = ticket.StreetHeight,
+                             ClientEmail = ticket.ClientEmail
+                         }
+                        ).ToList();
             return View(await _context.Tickets.ToListAsync());
         }
 
@@ -46,8 +64,10 @@ namespace EstacionamientoMedido.Controllers
         }
 
         // GET: Tickets/Create
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
+            var brands = await _context.Brands.ToListAsync();
+            ViewBag.Brands = new SelectList(brands,"Id", "Name");
             return View();
         }
 
@@ -65,7 +85,7 @@ namespace EstacionamientoMedido.Controllers
             ticket.ClientName = clientName;
             ticket.Patent = patent;
             ticket.VehicleModel = vehicleModel;
-            ticket.VehicleBrand = vehicleBrand;
+            ticket.BrandId = vehicleBrand;
             ticket.CheckIn = Convert.ToDateTime(checkIn).TimeOfDay;
             ticket.CheckOut = Convert.ToDateTime(checkOut).TimeOfDay;
             ticket.Street = street;
